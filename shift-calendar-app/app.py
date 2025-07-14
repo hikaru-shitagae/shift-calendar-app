@@ -76,8 +76,6 @@ def extract_hour_and_minute(shift_str):
 
 def normalize_shift_string(shift_str):
     import re
-    # 全角→半角（数字・英字・記号）
-    shift_str = unicodedata.normalize('NFKC', shift_str)
     # 全角ハイフンやチルダを半角ハイフンに統一
     shift_str = shift_str.replace('ー', '-').replace('−', '-').replace('―', '-').replace('〜', '-').replace('～', '-').replace('~', '-')
     shift_str = shift_str.replace('‐', '-')  # その他のハイフン類
