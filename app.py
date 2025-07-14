@@ -91,7 +91,10 @@ def authorize():
 # Google認証コールバック
 @app.route('/oauth2callback')
 def oauth2callback():
-    state = session['state']
+    state = session.get('state')
+    if not state:
+        flash('セッションが切れました。最初からやり直してください。', 'error')
+        return redirect(url_for('index'))
     flow = Flow.from_client_secrets_file(
         get_credentials_file(),
         scopes=SCOPES,
