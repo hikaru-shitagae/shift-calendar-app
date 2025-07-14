@@ -73,6 +73,34 @@ def extract_hour_and_minute(shift_str):
             minute = '00'
     return hour, minute
 
+def normalize_shift_string(shift_str):
+    import re
+    # 全角ハイフンやチルダを半角ハイフンに統一
+    shift_str = shift_str.replace('ー', '-').replace('−', '-').replace('―', '-').replace('〜', '-').replace('～', '-').replace('~', '-')
+    shift_str = shift_str.replace('‐', '-')  # その他のハイフン類
+    # 17:00- → 17-L
+    m = re.match(r'^(\d{1,2}):?0{0,2}-$', shift_str)
+    if m:
+        return f"{m.group(1)}-L"
+    # 17:-L → 17-L
+    m = re.match(r'^(\d{1,2}):?-L$', shift_str)
+    if m:
+        return f"{m.group(1)}-L"
+    # 17:00-23:L → 17-L
+    m = re.match(r'^(\d{1,2}):?0{0,2}-23:?L$', shift_str)
+    if m:
+        return f"{m.group(1)}-L"
+    # 17:00-23:00 → 17-L
+    m = re.match(r'^(\d{1,2}):?0{0,2}-23:00$', shift_str)
+    if m:
+        return f"{m.group(1)}-L"
+    # 17:00-22:00 → 17-22
+    m = re.match(r'^(\d{1,2}):?0{0,2}-(\d{1,2}):?0{0,2}$', shift_str)
+    if m:
+        return f"{m.group(1)}-{m.group(2)}"
+    # 既に正しい場合
+    return shift_str
+
 # Google認証フロー開始
 @app.route('/authorize')
 def authorize():
@@ -206,9 +234,11 @@ def index():
                     for col in date_columns:
                         shift_value = row[col]
                         if pd.notna(shift_value):
+                            shift_str = str(shift_value)
+                            shift_str = normalize_shift_string(shift_str)
                             shifts.append({
                                 'date': col.strftime('%Y-%m-%d') if hasattr(col, 'strftime') else str(col),
-                                'shift': str(shift_value)
+                                'shift': shift_str
                             })
                     print(f"[DEBUG] フォームから受け取ったシフト: {shifts}")
                     if 'credentials' not in session:
