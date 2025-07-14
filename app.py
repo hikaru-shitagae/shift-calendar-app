@@ -4,6 +4,7 @@ import os
 from werkzeug.utils import secure_filename
 import datetime
 import re
+import unicodedata
 
 # Google API関連
 import google.auth.transport.requests
@@ -131,15 +132,21 @@ def oauth2callback():
     )
     flow.fetch_token(authorization_response=request.url)
     credentials = flow.credentials
+    # refresh_tokenがNoneの場合は古いセッションから引き継ぐ
+    refresh_token = credentials.refresh_token
+    if not refresh_token and 'credentials' in session:
+        refresh_token = session['credentials'].get('refresh_token')
+    if not refresh_token:
+        flash('Google認証情報が不完全です。アカウント選択画面で必ず「アカウントを選択」し直してください。', 'error')
+        return redirect(url_for('index'))
     session['credentials'] = {
         'token': credentials.token,
-        'refresh_token': credentials.refresh_token,
+        'refresh_token': refresh_token,
         'token_uri': str(getattr(credentials, 'token_uri', '')),
         'client_id': credentials.client_id,
         'client_secret': credentials.client_secret,
         'scopes': credentials.scopes
     }
-    # Google認証完了メッセージを削除
     return redirect(url_for('index'))
 
 # Googleカレンダーにイベント登録
