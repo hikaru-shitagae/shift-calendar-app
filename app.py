@@ -111,7 +111,7 @@ def oauth2callback():
         'client_secret': credentials.client_secret,
         'scopes': credentials.scopes
     }
-    flash('Google認証が完了しました。再度「Googleカレンダーに登録」ボタンを押してください。', 'success')
+    # Google認証完了メッセージを削除
     return redirect(url_for('index'))
 
 # Googleカレンダーにイベント登録
@@ -214,7 +214,7 @@ def index():
                     if 'credentials' not in session:
                         session['pending_shifts'] = shifts
                         session['pending_name'] = name
-                        flash('Google認証が必要です。認証画面に進みます。', 'info')
+                        # flash('Google認証が必要です。認証画面に進みます。', 'info')
                         return redirect(url_for('authorize'))
                     results = add_shift_to_calendar(session['credentials'], shifts, name)
                     # 成功したシフトの数をカウント
