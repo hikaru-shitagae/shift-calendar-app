@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Uploaded files
+shift_calendar_app/uploads/
+
+# Google credentials and tokens
+credentials.json
+token.json
+
+# Excel and other sensitive files
+*.xlsx
+
+# その他除外したいファイルがあればここに追加 
