@@ -3,5 +3,5 @@ services:
     name: shift-calendar-app
     env: python
     plan: free
-    buildCommand: ls -la && pwd && ls -R || echo "Recursive listing not available"
+    buildCommand: echo "Debugging start..." && ls -la && pwd && ls /opt/render/project && python --version && pip list && cat requirements.txt || echo "Debugging failed"
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
