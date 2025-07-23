@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: shift-calendar-app
+    env: python
+    plan: free
+    buildCommand: ls -la && pwd && cat requirements.txt && pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
