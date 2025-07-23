@@ -3,5 +3,5 @@ services:
     name: shift-calendar-app
     env: python
     plan: free
-    buildCommand: ls -la && pwd && ls ./requirements.txt && cat ./requirements.txt && pip install -r ./requirements.txt || echo "requirements.txt not found"
+    buildCommand: echo "Debugging start..." && ls -la && pwd && ls ./requirements.txt && cat ./requirements.txt && pip install -r ./requirements.txt || echo "requirements.txt not found"
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
