@@ -45,3 +45,5 @@ Thumbs.db
 # Uploads (keep directory but ignore files)
 uploads/*.xlsx
 uploads/*.xls
+
+!requirements.txt
