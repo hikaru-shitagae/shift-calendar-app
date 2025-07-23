@@ -3,10 +3,8 @@ services:
     name: shift-calendar-app
     env: python
     plan: free
-    buildCommand: pip install Flask==2.3.3 pandas==2.2.0 openpyxl==3.1.2 google-auth==2.23.4 google-auth-oauthlib==1.1.0 google-auth-httplib2==0.1.1 google-api-python-client==2.108.0 Werkzeug==2.3.7 gunicorn==21.2.0 python-dotenv==1.0.0
+    buildCommand: python -m pip install --upgrade pip && pip install -r requirements.txt
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
     envVars:
       - key: FLASK_SECRET_KEY
         generateValue: true
-      - key: GOOGLE_CREDENTIALS
-        sync: false
