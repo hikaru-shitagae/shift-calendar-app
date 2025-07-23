@@ -3,5 +3,5 @@ services:
     name: shift-calendar-app
     env: python
     plan: free
-    buildCommand: ls -la && pwd && tree || echo "Tree command not available"
+    buildCommand: ls -la && pwd && ls -R || echo "Recursive listing not available"
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
