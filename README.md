@@ -35,19 +35,7 @@ export FLASK_SECRET_KEY='your_secret_key'
 python app.py
 ```
 
-## デプロイ
-
-### Render（推奨・無料）
-
-詳細なデプロイ手順は [RENDER_DEPLOY.md](RENDER_DEPLOY.md) を参照してください。
-
-#### 概要
-1. [Render](https://render.com/) でアカウント作成
-2. GitHubリポジトリを接続
-3. 環境変数を設定（`FLASK_SECRET_KEY`, `GOOGLE_CREDENTIALS`）
-4. デプロイ実行
-
-### Heroku（有料）
+## デプロイ（Heroku）
 
 ### 1. Heroku CLI のインストール
 
