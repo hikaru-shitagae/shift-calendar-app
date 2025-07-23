@@ -42,8 +42,9 @@ python app.py
 詳細なデプロイ手順は [RENDER_DEPLOY.md](RENDER_DEPLOY.md) を参照してください。
 
 #### 概要
+
 1. [Render](https://render.com/) でアカウント作成
-2. GitHubリポジトリを接続
+2. GitHub リポジトリを接続
 3. 環境変数を設定（`FLASK_SECRET_KEY`, `GOOGLE_CREDENTIALS`）
 4. デプロイ実行
 
