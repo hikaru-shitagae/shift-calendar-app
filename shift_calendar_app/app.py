@@ -107,7 +107,9 @@ def normalize_shift_string(shift_str):
 def excel_date_to_datetime(serial_date):
     """Excelのシリアル日付をdatetimeに変換"""
     base_date = datetime(1899, 12, 30)  # Excelの基準日
-    return base_date + timedelta(days=serial_date)
+    result_date = base_date + timedelta(days=serial_date)
+    print(f"[DEBUG] シリアル日付 {serial_date} を変換: {result_date}")
+    return result_date
 
 # Google認証フロー開始
 @app.route('/authorize')
@@ -180,8 +182,10 @@ def add_shift_to_calendar(credentials_dict, shifts, name):
             else:
                 print(f"[DEBUG] スキップ: shift_str={shift_str}")
                 continue
+            print(f"[DEBUG] 日付と時間: {date} {start_time} - {end_time}")
             start_dt = datetime.strptime(f"{date} {start_time}", "%Y-%m-%d %H:%M")
             end_dt = datetime.strptime(f"{date} {end_time}", "%Y-%m-%d %H:%M")
+            print(f"[DEBUG] 変換後の日時: {start_dt} - {end_dt}")
             event = {
                 'summary': f'青山がらりアルバイト',
                 'start': {
