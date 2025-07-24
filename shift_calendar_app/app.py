@@ -110,6 +110,11 @@ def excel_date_to_datetime(serial_date):
     print(f"[DEBUG] シリアル日付 {serial_date} を変換: {result_date}")
     return result_date
 
+# Excelシリアル日付を変換する関数
+def excel_serial_to_date_str(serial):
+    base_date = datetime.datetime(1899, 12, 30)
+    return (base_date + datetime.timedelta(days=int(serial))).strftime('%Y-%m-%d')
+
 # Google認証フロー開始
 @app.route('/authorize')
 def authorize():
@@ -242,8 +247,9 @@ def index():
                 # 3列目以降かつ末尾のUnnamed列を除外
                 date_columns = df.columns[2:-3]
                 print("[DEBUG] date_columns:", date_columns)
-                row = df[df[df.columns[1]] == name]
-                print("[DEBUG] row:", row)
+                row = df.iloc[1:]
+                row = row[row[df.columns[1]] == name]
+
                 if row.empty:
                     flash(f'「{name}」さんのシフトが見つかりません', 'error')
                 else:
@@ -254,8 +260,9 @@ def index():
                         if pd.notna(shift_value):
                             shift_str = str(shift_value)
                             shift_str = normalize_shift_string(shift_str)
+                            date_str = excel_serial_to_date_str(col)
                             shifts.append({
-                                'date': col.strftime('%Y-%m-%d') if hasattr(col, 'strftime') else str(col),
+                                'date': date_str,
                                 'shift': shift_str
                             })
                     print(f"[DEBUG] フォームから受け取ったシフト: {shifts}")
