@@ -38,8 +38,8 @@ def get_credentials_file():
         temp_file.close()
         return temp_file.name
     else:
-        # ローカルファイルから取得
-        return CREDENTIALS_FILE
+        # credentials.jsonが見つからない場合のエラーハンドリング
+        raise FileNotFoundError("Environment variable 'GOOGLE_CREDENTIALS' is not set.")
 
 # ファイル拡張子チェック
 def allowed_file(filename):
@@ -282,15 +282,6 @@ def index():
         if error_count > 0:
             flash(f'{error_count}件のシフトで登録エラーが発生しました', 'error')
     return render_template('index.html', shifts=shifts, name=name)
-
-# デバッグ用: 環境変数をログに出力
-def log_environment_variables():
-    print("--- 環境変数 ---")
-    for key, value in os.environ.items():
-        print(f"{key}: {value}")
-    print("-----------------------------")
-
-log_environment_variables()
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
