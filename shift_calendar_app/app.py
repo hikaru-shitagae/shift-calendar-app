@@ -283,6 +283,15 @@ def index():
             flash(f'{error_count}件のシフトで登録エラーが発生しました', 'error')
     return render_template('index.html', shifts=shifts, name=name)
 
+# デバッグ用: 環境変数をログに出力
+def log_environment_variables():
+    print("--- 環境変数 ---")
+    for key, value in os.environ.items():
+        print(f"{key}: {value}")
+    print("-----------------------------")
+
+log_environment_variables()
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)

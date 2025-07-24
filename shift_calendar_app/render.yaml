@@ -5,6 +5,9 @@ services:
     plan: free
     dockerfilePath: Dockerfile
     buildCommand: |
-      pyenv install 3.9.7 --skip-existing
-      pyenv global 3.9.7
+      echo "Current Python version: $(python --version)"
+      echo "Pip version: $(pip --version)"
+      echo "Current directory: $(pwd)"
+      echo "Directory structure:"
+      tree
       pip install --no-build-isolation -r requirements.txt
