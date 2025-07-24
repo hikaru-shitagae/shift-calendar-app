@@ -5,9 +5,8 @@ services:
     plan: free
     dockerfilePath: Dockerfile
     buildCommand: |
-      echo "Current Python version: $(python --version)"
-      echo "Pip version: $(pip --version)"
-      echo "Current directory: $(pwd)"
-      echo "Directory structure:"
-      tree
+      echo "Using Python version: $(python --version)"
       pip install --no-build-isolation -r requirements.txt
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.10.12"
