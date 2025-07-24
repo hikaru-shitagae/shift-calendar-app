@@ -5,7 +5,6 @@ from werkzeug.utils import secure_filename
 import datetime
 import re
 import unicodedata
-from datetime import datetime, timedelta
 
 # Google API関連
 import google.auth.transport.requests
@@ -106,8 +105,8 @@ def normalize_shift_string(shift_str):
 # Excelのシリアル日付をdatetimeに変換
 def excel_date_to_datetime(serial_date):
     """Excelのシリアル日付をdatetimeに変換"""
-    base_date = datetime(1899, 12, 30)  # Excelの基準日
-    result_date = base_date + timedelta(days=serial_date)
+    base_date = datetime.datetime(1899, 12, 30)  # Excelの基準日
+    result_date = base_date + datetime.timedelta(days=serial_date)
     print(f"[DEBUG] シリアル日付 {serial_date} を変換: {result_date}")
     return result_date
 
@@ -183,8 +182,8 @@ def add_shift_to_calendar(credentials_dict, shifts, name):
                 print(f"[DEBUG] スキップ: shift_str={shift_str}")
                 continue
             print(f"[DEBUG] 日付と時間: {date} {start_time} - {end_time}")
-            start_dt = datetime.strptime(f"{date} {start_time}", "%Y-%m-%d %H:%M")
-            end_dt = datetime.strptime(f"{date} {end_time}", "%Y-%m-%d %H:%M")
+            start_dt = datetime.datetime.strptime(f"{date} {start_time}", "%Y-%m-%d %H:%M")
+            end_dt = datetime.datetime.strptime(f"{date} {end_time}", "%Y-%m-%d %H:%M")
             print(f"[DEBUG] 変換後の日時: {start_dt} - {end_dt}")
             event = {
                 'summary': f'青山がらりアルバイト',
