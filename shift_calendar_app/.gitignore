@@ -47,3 +47,11 @@ uploads/*.xlsx
 uploads/*.xls
 
 !requirements.txt
+
+# 機密情報
+credentials.json
+
+# 一時ファイル
+*.log
+*.tmp
+*.pyc
