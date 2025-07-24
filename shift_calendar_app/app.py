@@ -180,8 +180,8 @@ def add_shift_to_calendar(credentials_dict, shifts, name):
             else:
                 print(f"[DEBUG] スキップ: shift_str={shift_str}")
                 continue
-            start_dt = datetime.datetime.strptime(f"{date} {start_time}", "%Y-%m-%d %H:%M")
-            end_dt = datetime.datetime.strptime(f"{date} {end_time}", "%Y-%m-%d %H:%M")
+            start_dt = datetime.strptime(f"{date} {start_time}", "%Y-%m-%d %H:%M")
+            end_dt = datetime.strptime(f"{date} {end_time}", "%Y-%m-%d %H:%M")
             event = {
                 'summary': f'青山がらりアルバイト',
                 'start': {
