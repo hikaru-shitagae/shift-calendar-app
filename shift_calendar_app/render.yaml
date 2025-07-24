@@ -1,8 +1,6 @@
 services:
   - type: web
     name: shift-calendar-app
-    env: python
+    env: docker
     plan: free
-    pythonVersion: 3.9.7
-    buildCommand: pip install --no-cache-dir --no-build-isolation -r requirements.txt
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    dockerfilePath: Dockerfile
