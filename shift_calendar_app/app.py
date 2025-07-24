@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 import datetime
 import re
 import unicodedata
+from datetime import datetime, timedelta
 
 # Google API関連
 import google.auth.transport.requests
@@ -101,6 +102,12 @@ def normalize_shift_string(shift_str):
         return f"{m.group(1)}-{m.group(2)}"
     # 既に正しい場合
     return shift_str
+
+# Excelのシリアル日付をdatetimeに変換
+def excel_date_to_datetime(serial_date):
+    """Excelのシリアル日付をdatetimeに変換"""
+    base_date = datetime(1899, 12, 30)  # Excelの基準日
+    return base_date + timedelta(days=serial_date)
 
 # Google認証フロー開始
 @app.route('/authorize')
