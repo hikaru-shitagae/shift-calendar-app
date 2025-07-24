@@ -4,3 +4,7 @@ services:
     env: docker
     plan: free
     dockerfilePath: Dockerfile
+    buildCommand: |
+      pyenv install 3.9.7 --skip-existing
+      pyenv global 3.9.7
+      pip install --no-build-isolation -r requirements.txt
